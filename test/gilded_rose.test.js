@@ -1,7 +1,7 @@
 const { Shop, Item } = require("../src/gilded_rose");
 
 describe("Gilded Rose", function () {
-  it("gives all items a 'sellIn' and a 'quantity' value", () => {
+  it("gives all items a 'sellIn' and a 'quality' value", () => {
     const sellIn = 10;
     const quality = 20;
 
