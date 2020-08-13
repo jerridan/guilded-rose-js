@@ -69,7 +69,83 @@ describe("Gilded Rose", function () {
     expect(item.quality).toEqual(50);
   });
 
+  it("does not change the quality or sellIn of Sulfuras", () => {
+    const item = createItem({
+      name: "Sulfuras, Hand of Ragnaros",
+      sellIn: 5,
+      quality: 10,
+    });
+    const gildedRose = new Shop([item]);
 
+    gildedRose.updateQuality();
+
+    expect(item.sellIn).toEqual(5);
+    expect(item.quality).toEqual(10);
+  });
+
+  it("increases the quality by 1 each day for Backstage Passes when the sellIn is greater than 10", () => {
+    const item = createItem({
+      name: "Backstage passes to a TAFKAL80ETC concert",
+      quality: 10,
+      sellIn: 11,
+    });
+    const gildedRose = new Shop([item]);
+
+    gildedRose.updateQuality();
+
+    expect(item.quality).toEqual(11);
+  });
+
+  it("increases the quality by 2 each day for Backstage Passes when the sellIn is between 6 and 10 days", () => {
+    const item1 = createItem({
+      name: "Backstage passes to a TAFKAL80ETC concert",
+      quality: 10,
+      sellIn: 6,
+    });
+    const item2 = createItem({
+      name: "Backstage passes to a TAFKAL80ETC concert",
+      quality: 10,
+      sellIn: 10,
+    });
+    const gildedRose = new Shop([item1, item2]);
+
+    gildedRose.updateQuality();
+
+    expect(item1.quality).toEqual(12);
+    expect(item2.quality).toEqual(12);
+  });
+
+  it("increases the quality by 3 each day for Backstage Passes when the sellIn is between 1 and 5 days", () => {
+    const item1 = createItem({
+      name: "Backstage passes to a TAFKAL80ETC concert",
+      quality: 10,
+      sellIn: 5,
+    });
+    const item2 = createItem({
+      name: "Backstage passes to a TAFKAL80ETC concert",
+      quality: 10,
+      sellIn: 1,
+    });
+    const gildedRose = new Shop([item1, item2]);
+
+    gildedRose.updateQuality();
+
+    expect(item1.quality).toEqual(13);
+    expect(item2.quality).toEqual(13);
+  });
+
+  it("drops the quality of Backstage Passes when the sellIn is 0", () => {
+    const item1 = createItem({
+      name: "Backstage passes to a TAFKAL80ETC concert",
+      quality: 10,
+      sellIn: 0,
+    });
+    const gildedRose = new Shop([item1]);
+
+    gildedRose.updateQuality();
+
+    expect(item1.quality).toEqual(0);
+  });
 });
 
 function createItem({ name = "item", sellIn = 10, quality = 20 }) {
