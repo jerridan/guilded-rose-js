@@ -1,19 +1,19 @@
 const { Shop, Item } = require("../src/gilded_rose");
 
 describe("Gilded Rose", function () {
-  it("gives all items a 'sellIn' and a 'quality' value", () => {
+  it("gives all items a 'sellIn' and a 'quantity' value", () => {
     const sellIn = 10;
     const quality = 20;
 
-    const item = new Item("foo", sellIn, quality);
+    const item = createItem({ sellIn, quality });
 
     expect(item.sellIn).toEqual(sellIn);
     expect(item.quality).toEqual(quality);
   });
 
   it("lowers the value of 'sellIn' by 1 each day for each item", () => {
-    const item1 = new Item("item1", 10, 0);
-    const item2 = new Item("item2", 5, 0);
+    const item1 = createItem({ name: "item1", sellIn: 10 });
+    const item2 = createItem({ name: "item2", sellIn: 5 });
     const gildedRose = new Shop([item1, item2]);
 
     gildedRose.updateQuality();
@@ -23,10 +23,8 @@ describe("Gilded Rose", function () {
   });
 
   it("lowers the value of 'quality' by 1 each day for each item", () => {
-    const sellIn = 20;
-
-    const item1 = new Item("item1", sellIn, 10);
-    const item2 = new Item("item2", sellIn, 5);
+    const item1 = createItem({ name: "item1", quality: 10 });
+    const item2 = createItem({ name: "item2", quality: 5 });
     const gildedRose = new Shop([item1, item2]);
 
     gildedRose.updateQuality();
@@ -36,10 +34,7 @@ describe("Gilded Rose", function () {
   });
 
   it("lowers the quality of an item by 2 each day if the sell by date has passed", () => {
-    const sellIn = 0;
-    const quality = 4;
-
-    const item = new Item("item", sellIn, quality);
+    const item = createItem({ sellIn: 0, quality: 4 });
     const gildedRose = new Shop([item]);
 
     gildedRose.updateQuality();
@@ -48,10 +43,7 @@ describe("Gilded Rose", function () {
   });
 
   it("does not allow the quality of an item to become negative", () => {
-    const sellIn = 0;
-    const quality = 0;
-
-    const item = new Item("item", sellIn, quality);
+    const item = createItem({ quality: 0 });
     const gildedRose = new Shop([item]);
 
     gildedRose.updateQuality();
@@ -59,3 +51,7 @@ describe("Gilded Rose", function () {
     expect(item.quality).toEqual(0);
   });
 });
+
+function createItem({ name = "item", sellIn = 10, quality = 20 }) {
+  return new Item(name, sellIn, quality);
+}
