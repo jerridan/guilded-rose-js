@@ -146,6 +146,15 @@ describe("Gilded Rose", function () {
 
     expect(item1.quality).toEqual(0);
   });
+
+  xit("decreases the quality of Conjured items by 2 each day", () => {
+    const item = createItem({ name: "Conjured", quality: 4 });
+    const gildedRose = new Shop([item]);
+
+    gildedRose.updateQuality();
+
+    expect(item.quality).toEqual(2);
+  });
 });
 
 function createItem({ name = "item", sellIn = 10, quality = 20 }) {
