@@ -12,8 +12,8 @@ describe("Gilded Rose", function () {
   });
 
   it("lowers the value of 'sellIn' by 1 each day for each item", () => {
-    const item1 = createItem({ name: "item1", sellIn: 10 });
-    const item2 = createItem({ name: "item2", sellIn: 5 });
+    const item1 = createItem({ sellIn: 10 });
+    const item2 = createItem({ sellIn: 5 });
     const gildedRose = new Shop([item1, item2]);
 
     gildedRose.updateQuality();
@@ -23,8 +23,8 @@ describe("Gilded Rose", function () {
   });
 
   it("lowers the value of 'quality' by 1 each day for each item", () => {
-    const item1 = createItem({ name: "item1", quality: 10 });
-    const item2 = createItem({ name: "item2", quality: 5 });
+    const item1 = createItem({ quality: 10 });
+    const item2 = createItem({ quality: 5 });
     const gildedRose = new Shop([item1, item2]);
 
     gildedRose.updateQuality();
