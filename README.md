@@ -4,6 +4,8 @@ This is the Gilded Rose kata in JavaScript with Jest
 
 Based on the one from https://github.com/emilybache/GildedRose-Refactoring-Kata
 
+The description and rules can be found here: https://github.com/NotMyself/GildedRose
+
 ## Getting started
 
 Install dependencies
